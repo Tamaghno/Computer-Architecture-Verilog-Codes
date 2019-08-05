@@ -1,0 +1,23 @@
+module bin2gray (b,g);
+  input [3:0]b;
+  output [3:0]g;
+  assign g[3] = b[3];
+  assign g[2] = b[3]^b[2];
+  assign g[1] = b[2]^b[1];
+  assign g[0] = b[1]^b[0];    
+endmodule
+
+module bin2gray_tb();
+   reg[3:0]b;
+   wire[3:0]g;
+   integer i;
+   bin2gray b1(b,g);
+   initial
+   begin
+       for(i=0; i<16; i=i+1)
+       begin
+          b=i;
+          #100;
+       end
+   end
+endmodule

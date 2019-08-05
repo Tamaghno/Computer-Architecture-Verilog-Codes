@@ -1,0 +1,34 @@
+module ram(input [3:0]data,input[3:0]adr,input clk,input reset,input cs,input we,output reg[3:0]out);
+reg [3:0]ram[0:16};
+always @(*)
+begin
+if (cs)
+if(we)
+begin
+ram[addr]=data
+out=4'bz;
+end
+else
+out=ram[addr];
+else
+out=4'bz
+end
+endmodule
+
+module ram_test;
+reg [3:0]data;
+reg [3:0]addr;
+reg clk;
+reg reset;
+reg cs;
+reg we;
+wire [3:0]out;
+ram uut(.data(data),.addr(addr),.clk(clk),.reset(reset),.cs(cs),.we(we),.out(out));
+initial begin
+clk=1;data=2;addr=0;reset=0;cs=1;we=1;
+#100;
+data=3;addr=0;reset=0;cs=1;we=0;
+#100;
+end 
+always #50 clk=~clk;
+endmodule

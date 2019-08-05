@@ -1,0 +1,15 @@
+moduel jkff(input j,input k,input clk,output p,output q);
+reg qm=;
+always@(posedge clk)begin
+if(j==1 && k==1)
+qm=~qm;
+elseif (j==0 && k==1)
+qm=0;
+elseif (j==1 && k==0)
+qm=1;
+elseif (j==0 && k==0)
+qm=p;
+end
+assign p=qm;
+assign q=~p;
+endmodule

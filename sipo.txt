@@ -1,0 +1,35 @@
+module sipo(clk,rst,a,q);
+	input a;
+	input clk,rst;
+	output [3:0]q;
+	wire [3:0]q;
+	reg [3:0]tmp;
+	always@(posedge clk,posedge rst)
+	begin
+		if (rst==1)
+			tmp=0;
+		else
+		begin
+			tmp=tmp<<1;
+			tmp[0]=a;
+		end
+	end
+	assign q=tmp;
+endmodule
+
+
+module sipo_tb;
+	reg a,clk,rst;
+	wire [3:0]q;
+	sipo s1(clk,rst,a,q);
+	initial clk=1'b1;
+	always #10 clk=~clk;
+	initial
+	begin
+		a=1;rst=1;#100;
+		a=0;rst=0;#100;
+		a=1;rst=0;#100;
+		a=0;rst=0;#100;
+	end
+	initial #1000 $stop;
+endmodule

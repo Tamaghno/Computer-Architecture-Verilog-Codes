@@ -1,0 +1,34 @@
+module up_down( input clk,reset,up_down,output reg [3:0]q);
+	initial begin
+		q=0;
+	end
+	always@(posedge clk)
+	begin
+		if(!reset)
+			q<=4'b0000;
+		else if(up_down==1'b1)
+			q<=q+1;
+		else
+			q<=q-1;
+	end
+endmodule
+
+module up_down_tb;
+	reg clk,reset,up_down;
+	wire [3:0]q;
+	initial begin
+		clk=1; 
+	end
+	up_down ud1(clk,reset,up_down, q);
+	always #100 clk=~clk;
+	initial begin
+		reset=1;
+		up_down=1; #100;		
+		up_down=1; #100;
+		up_down=1; #100;
+		up_down=1; #100;
+		up_down=0; #100;
+		up_down=0; #100;
+		reset=0; up_down=1; #100;
+	end
+endmodule	

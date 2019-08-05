@@ -1,0 +1,17 @@
+module mux4(s0,s1,a,b,c,d,z);
+input s0,s1,a,b,c,d;
+output z;
+wire s0n=~s0;
+wire s1n=~s1;
+assign z=(s0n&s1n&a)|(s0&s1n&b)|(s0n&s1&c)|(s0&s1&d);
+endmodule
+
+
+module mux8(s2,s1,s0,i0,i1,i2,i3,i4,i5,i6,i7,y);
+input s2,s1,s0,i0,i1,i2,i3,i4,i5,i6,i7;
+output y;
+wire y0,y1;
+mux4 m1(s1,s0,i0,i1,i2,i3,y0);
+mux4 m2(s1,s0,i4,i5,i6,i7,y1);
+assign y=(~s2&y0)|(s2&y1);
+endmodule

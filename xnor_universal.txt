@@ -1,0 +1,17 @@
+module xnor_universal(a,b,c);
+	input a,b;
+	output c;
+	wire c1, c2, c3;
+	nand2gate n1(a,b,c1), n2(a,c1,c2), n3(b, c1, c3), n4(c2,c3,c);
+	endmodule
+module xnor_universal_tb;
+	reg a,b;
+	wire c;
+	xnor_universal x1(a,b,c);
+	initial begin
+		a=0; b=0; #100;
+		a=0; b=1; #100;
+		a=1; b=0; #100;
+		a=1; b=1; #100;
+	end
+	endmodule

@@ -1,0 +1,12 @@
+module sr-ff(input s,input r,input clk,output p, output q);
+reg qm=0;
+always@(posedge clk)
+if(s==0 && r==1)
+qm=0;
+elseif (s==1 && r==0)
+qm=1;
+elseif (s==0 && r==0)
+qm=p;
+assign p=qm;
+q=~p;
+endmodule

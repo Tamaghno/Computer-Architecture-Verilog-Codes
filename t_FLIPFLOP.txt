@@ -1,0 +1,45 @@
+module tff(q,q1,t,c);
+output q,q1;
+input t,c;
+reg q,q1;
+initial 
+   begin 
+	q=1'b1;
+	q1=1'b0;
+   end
+ always @ (c)
+	begin
+		if(c)
+			 begin
+			   if (t==1'b0) begin q=q; q1=q1; end
+			   else begin q=~q; q1=~q1; end
+			 end
+	 end
+endmodule
+
+module tff_test;
+
+	// Inputs
+	reg t;
+	reg c;
+
+	// Outputs
+	wire q;
+	wire q1;
+
+	// Instantiate the Unit Under Test (UUT)
+	tff uut (
+		.q(q), 
+		.q1(q1), 
+		.t(t), 
+		.c(c)
+	);
+
+initial begin
+	   c=1;
+		t=0; #100;
+		t=1; #100;
+	end
+	always #50 c=~c;
+      
+endmodule

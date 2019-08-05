@@ -1,0 +1,24 @@
+module fulladder(inputa,input b,input cin,output s,output cout);
+assign s=a^b^cin;
+assign cout=(cin&(a^b))|(a&b);
+endmodule
+
+module paraadder(input [3:0]a,input [3:0]b,input cin,output [3:0]s,output cout);
+wire [3:0]co;
+fulladder fa1(.a(a[0]),.b(b[0]),.cin(cin),.s(s[0]),.cout(co[0]));
+fulladder fa2(.a(a[1]),.b(b[1]),.cin(co[0]),.s(s[1]),.cout(co[1]));
+fulladder fa3(.a(a[2]),.b(b[2]),.cin(co[1]),.s(s[2]),.cout(co[2]));
+fulladder fa4(.a(a[3]),.b(b[3]),.cin(co[2]),.s(s[3]),.cout(cout));
+endmodule
+
+module incrementer(input [7:0]a,output [7:0]s,output cout);
+wire [1:0]co;
+paraadder pa1(.a(a[3:0]),.b(0),.cin(1),.s(s[3:0]),.cout(co[0]));
+paraadder pa2(.a(a[7:4]),.b(0),.cin(co[0]),.s(s[7:4]),.cout(cout));
+endmodule
+
+module decrementer(input [7:0]a,output [7:0]d,output cout);
+wire [1:0]co;
+paraadder pa1(.a(a[3:0]),.b(4'b1111),.cin(0),.s(d[3:0]),.cout(co[0]));
+paraadder pa23(.a(a[7:4]),.b(4'b1111),.cin(co[0]),.s(d[7:4]),.cout(cout));
+endmodule

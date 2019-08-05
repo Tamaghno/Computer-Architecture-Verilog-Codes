@@ -1,0 +1,20 @@
+module priority_encoder(a,b);
+	input [7:0]a;
+	output [2:0]b;
+	assign b=(a>=128?7:(a>=64?6:(a>=32?5:(a>=16?4:(a>=8?3:(a>=4?2:(a>=2?1:0)))))));
+endmodule
+
+module priority_encoder_tb();
+	reg [7:0]x;
+	wire[2:0]y;
+	integer i;
+	priority_encoder p1(x,y);
+	initial begin
+		for(i=0; i<64; i=i+4)
+		begin
+			x=i;
+			#100;
+		end
+	end
+endmodule
+	

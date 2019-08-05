@@ -1,0 +1,26 @@
+module ring_counter(clk,rst,q);
+	input clk,rst;
+	output [3:0]q;
+	reg [3:0]q;
+	always@(posedge clk)
+	begin
+		if(rst==1)
+			q=1;
+		else
+			q={q[2:0],q[3]};
+	end
+endmodule
+
+
+module ring_counter_tb;
+	reg clk,rst;
+	wire [3:0]q;
+	ring_counter r1(clk,rst,q);
+	initial
+	begin
+		clk=0;
+		rst=1;#100;
+		rst=0;#100;
+	end
+	always #5 clk=~clk;
+endmodule

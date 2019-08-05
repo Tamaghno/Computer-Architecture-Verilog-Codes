@@ -1,0 +1,22 @@
+module gray2bin_4(input[3:0]g, output[3:0]b);    
+    assign b[3] = g[3];
+    assign b[2] = b[3]^g[2];
+    assign b[1] = b[2]^g[1];
+    assign b[0] = b[1]^g[0];
+endmodule
+
+
+module gray2bin_tb();
+   reg[3:0]g;
+   wire[3:0]b;
+   integer i;
+   gray2bin g(g,b);
+   initial
+   begin
+       for(i=0; i<16; i=i+1)
+       begin
+          g=i;
+          #100;
+       end
+   end
+endmodule

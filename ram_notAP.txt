@@ -1,0 +1,26 @@
+module ram(add,di,do,cs,we);
+	input [3:0]di,add;
+	input cs,we;
+	output [3:0]do;
+	reg [3:0]RAM[15:0];
+	reg [3:0]do;
+	always @(cs or we or add or di)
+	begin
+		if(cs==0 &we==0)
+		begin
+			RAM[add]=di;
+			do='bz;
+		end
+		else if(cs==0 & we==1)
+			do=RAM[add];
+	end
+endmodule
+
+module ramhor(add,di,do,cs,we);
+	input [3:0]add;
+	input [7:0]di;
+	input cs,we;
+	output [7:0]do;
+	ram a1(add,di[3:0],do[3:0],cs,we);
+	ram a2(add,di[7:4],do[7:4],cs,we);
+endmodule
